@@ -56,3 +56,9 @@ The source repository is published on GitHub. See the Actions tab for remote tes
 - Propose Arizona law and competent courts in Maricopa County or the federal court in Phoenix.
 - Prepare private PDF signing instructions, a request template, and empty intake and register templates.
 - Record the remaining owner adoption and legal review requirements.
+
+## Contribution process adoption
+
+- Adopt assignment version 1.0 and the private PDF signing process under the owner's express approval.
+- Remove the lawyer-review prerequisite without claiming lawyer approval.
+- Keep verification of each rights holder's signed assignment as a condition of merge.

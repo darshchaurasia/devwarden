@@ -1,11 +1,11 @@
 {
-  "agreement_status": "draft_not_adopted",
-  "agreement_version": "0.2",
+  "agreement_status": "not_initialized",
+  "agreement_version": "1.0",
   "private_contact": "",
   "method": "private_pdf_exchange",
   "signature_method": "handwritten_or_electronic_signature_on_complete_pdf",
   "register": "",
   "documents": "",
   "evidence": "",
-  "merge_eligibility": "blocked_until_adoption_and_verified_assignment"
+  "merge_eligibility": "blocked_until_verified_assignment"
 }

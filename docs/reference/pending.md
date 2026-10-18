@@ -2,18 +2,21 @@
 type: Project Status
 title: Pending work
 description: Record the decisions needed before accepting outside contributions.
-status: draft
+status: stable
 ---
 
 # Pending work
 
 | Item | Status |
 |---|---|
-| Arizona law and Maricopa County forum clauses | Prepared in [draft version 0.2](../legal/contributor-assignment-draft.md). |
-| Private PDF signing process and request template | Prepared in the [signing procedure](../legal/signing-process.md). No signatures collected. |
-| Owner intake mailbox and local private register | Initialized outside the public repository. The register contains no executed assignments. |
-| Legal readiness examination | Agent review recorded in [readiness review](../legal/readiness-review.md). Independent legal review has not occurred. |
-| Final adoption | Pending owner approval and the legal review required by the existing policy. External work remains on hold. |
+| Contribution assignment | [Version 1.0](../legal/contributor-assignment.md) adopted by Darsh Chaurasia on October 18, 2026. |
+| Governing law and forum | Arizona law and competent Maricopa County state courts or the federal court in Phoenix. |
+| Private PDF signing process | Adopted in the [signing procedure](../legal/signing-process.md). |
+| Owner intake mailbox and private register | Initialized outside the public repository. No executed assignment is recorded yet. |
+| Lawyer review | Not performed. The owner expressly approved proceeding without this prerequisite. |
+
+No implementation or adoption task remains for the current contribution process.
+When a contribution arrives, the owner must verify its rights holder and signed assignment before a merge.
 
 The agent language review is complete. See its [scope and limits](documentation-review.md).
 No full STE conformance claim is made.

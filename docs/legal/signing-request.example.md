@@ -1,14 +1,14 @@
 ---
 type: Communication Template
 title: Private assignment request
-description: Prepare a private request after the owner adopts the final assignment.
-status: draft
+description: Prepare a private request using the adopted contribution assignment.
+status: stable
 ---
 
 # Private assignment request
 
 This template is not sent automatically.
-Do not use it until the owner adopts the final agreement.
+Use the adopted agreement version and verify the actual rights holder before sending it.
 Replace the fields below in a private message. Do not put personal details in a public issue.
 
 ## Message template

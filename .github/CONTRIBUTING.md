@@ -36,9 +36,9 @@ A contributor cannot assign rights that they do not own.
 
 A pull-request checkbox, commit sign-off, or GitHub account does not by itself establish a completed assignment.
 Before approval, the owner examines the private legal records.
-The [assignment draft](../docs/legal/contributor-assignment-draft.md) and [signing process](../docs/legal/signing-process.md) are available for review.
-The assignment form is not final.
-The owner must adopt the agreement before accepting signed copies.
+The owner adopted [assignment version 1.0](../docs/legal/contributor-assignment.md) and the [private signing process](../docs/legal/signing-process.md).
+The agreement has not been reviewed by a lawyer. The owner approved proceeding without that prerequisite.
+Contributors must sign the adopted agreement before their copyrightable work is merged.
 Before a merge, the owner must verify the signed assignment.
 
 ## Pull-request pipeline
@@ -61,7 +61,7 @@ Repository administrators keep GitHub's administrative bypass capability.
 Before a merge, the owner must verify the rights to contributed work.
 A required code-owner approval includes a manual verification of the signed assignment.
 No automated legal-signature verification is claimed.
-An optional signing integration can be added after the agreement is adopted.
+An automated coverage check is optional. Manual verification is the current process.
 
 ## Development
 
