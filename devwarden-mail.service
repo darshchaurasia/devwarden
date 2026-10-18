@@ -1,0 +1,10 @@
+[Unit]
+Description=Retry saved repository report email
+
+[Service]
+Type=oneshot
+UMask=0077
+Environment=@CONFIG_ENV@
+Environment=@STATE_ENV@
+ExecStart=@PYTHON@ @SCRIPT@ flush
+TimeoutStartSec=5min

@@ -1,0 +1,15 @@
+[Unit]
+Description=Update local GitHub repositories and save a report
+
+[Service]
+Type=oneshot
+UMask=0077
+Environment=@CONFIG_ENV@
+Environment=@STATE_ENV@
+ExecStartPre=/usr/bin/rm -f @STATE@
+ExecStart=@PYTHON@ @SCRIPT@ run
+ExecStopPost=@PYTHON@ @SCRIPT@ report
+TimeoutStopSec=5min
+TimeoutStartSec=4h
+Nice=10
+Environment=PYTHONUNBUFFERED=1
