@@ -1,3 +1,3 @@
-"""Maintain local Git default branches and preserve development work."""
+"""Maintain local Git default branches and keep development work."""
 
 __version__ = "0.1.0"

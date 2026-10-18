@@ -8,14 +8,14 @@ from devwarden import update
 
 
 def run(*args):
-    """Run the updater and save its output before mail delivery."""
+    """Start a Git command. Return its standard output."""
     return subprocess.run(['git', *map(str, args)], check=True, capture_output=True, text=True).stdout.strip()
 
 
 class UpdateTest(unittest.TestCase):
-    """Check repository and report behavior with isolated test data."""
+    """Examine repository and report behavior with isolated test data."""
     def test_empty_remote_excluded_but_broken_default_is_error(self):
-        """Check empty remote excluded but broken default is error."""
+        """Make sure that an empty remote is excluded and a missing default branch causes an error."""
         with tempfile.TemporaryDirectory() as tmp, patch.object(update, 'github_origin', return_value=True):
             root = Path(tmp)
             remote, checkout = root / 'remote', root / 'checkout'
@@ -34,12 +34,12 @@ class UpdateTest(unittest.TestCase):
             self.assertIn('has branches but no default branch', detail)
 
     def test_redacts_authentication_from_diagnostics(self):
-        """Check redacts authentication from diagnostics."""
+        """Make sure that diagnostics do not show supported credential patterns."""
         self.assertEqual(update.redact('https://user:secret@github.com/owner/repo ghp_secret123'),
                          'https://[REDACTED]@github.com/owner/repo [REDACTED]')
 
     def test_preserves_local_work(self):
-        """Check preserves local work."""
+        """Make sure that updates keep local work."""
         with tempfile.TemporaryDirectory() as tmp, patch.object(update, 'github_origin', return_value=True):
             root = Path(tmp)
             remote, source, checkout = [root / name for name in ('remote', 'source', 'checkout')]

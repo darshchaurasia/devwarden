@@ -1,4 +1,4 @@
-"""Check local behavior without private data or network mail delivery."""
+"""Examine local behavior without private data or network mail delivery."""
 import tempfile
 import os
 import json
@@ -9,7 +9,7 @@ from devwarden import report
 
 
 class ReportTest(unittest.TestCase):
-    """Check repository and report behavior with isolated test data."""
+    """Examine repository and report behavior with isolated test data."""
     def setUp(self):
         """Keep user mail environment settings out of isolated tests."""
         keys = ('host', 'port', 'security', 'sender', 'recipient', 'username', 'password')
@@ -19,7 +19,7 @@ class ReportTest(unittest.TestCase):
         self.addCleanup(environment.stop)
 
     def test_starttls_precedes_authentication(self):
-        """Check starttls precedes authentication."""
+        """Make sure that STARTTLS occurs before SMTP authentication."""
         with tempfile.TemporaryDirectory() as tmp:
             config = Path(tmp) / 'smtp.json'
             config.write_text(json.dumps(dict(sender='test@example.com', recipient='reader@example.com', username='test@example.com', password='test-only', host='smtp.example.com', port=587, security='starttls')))
@@ -33,12 +33,12 @@ class ReportTest(unittest.TestCase):
                 self.assertTrue(message.is_multipart())
 
     def test_invalid_mail_settings_rejected(self):
-        """Check invalid mail settings rejected."""
+        """Make sure that invalid mail settings cause an error."""
         with self.assertRaises(ValueError):
             report.validate_mail(dict(sender='a@example.com\nBcc: x@example.com', recipient='b@example.com', host='smtp.example.com', port=465, security='ssl'))
 
     def test_diagnostic_columns_and_compare_links(self):
-        """Check diagnostic columns and compare links."""
+        """Examine the diagnostic columns and the links to GitHub changes."""
         record = {'folder': 'example', 'branch': 'main', 'default_branch': 'main',
                   'url': 'https://github.com/owner/example', 'ahead': 75, 'behind': 175,
                   'diagnostics': '75 local commits, 175 remote commits; manual review required'}
@@ -56,7 +56,7 @@ class ReportTest(unittest.TestCase):
         self.assertIn('View changes</a>', html)
 
     def test_report_groups_results_and_escapes_html(self):
-        """Check report groups results and escapes html."""
+        """Examine report groups and HTML escaping."""
         body = ('DevWarden on example-host\nService result: success\n'
                 'CURRENT current-repo: main\n'
                 'UPDATED updated-repo: main: 1 commits (submodules and LFS downloads are not updated)\n'
@@ -76,7 +76,7 @@ class ReportTest(unittest.TestCase):
         self.assertIn('Run did not finish', partial)
 
     def test_authentication_waits_for_server_challenge(self):
-        """Check authentication waits for server challenge."""
+        """Make sure that authentication waits for the SMTP server challenge."""
         with tempfile.TemporaryDirectory() as tmp:
             config = Path(tmp) / 'gmail.json'
             config.write_text(json.dumps(dict(sender='test@example.com', recipient='reader@example.com', username='test@example.com', password='test-only', host='smtp.example.com', port=465, security='ssl')))
@@ -87,7 +87,7 @@ class ReportTest(unittest.TestCase):
                 client.send_message.assert_called_once()
 
     def test_failed_run_and_failed_delivery_are_preserved(self):
-        """Check failed run and failed delivery are preserved."""
+        """Make sure that delivery errors do not remove the run log or queued report."""
         with tempfile.TemporaryDirectory() as tmp:
             state = Path(tmp)
             log = state / 'run.log'

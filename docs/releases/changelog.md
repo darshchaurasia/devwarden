@@ -17,7 +17,7 @@ status: stable
 - Move account and schedule settings out of application code.
 - Add `.env.example` and private installed configuration.
 - Add optional SMTP over SSL or STARTTLS.
-- Preserve development checkouts through temporary worktrees.
+- Keep development checkouts through temporary worktrees.
 - Exclude remotes without branch code.
 - Add HTML reports with diagnostic columns and plain-text alternatives.
 - Add offline tests and a GitHub Actions test matrix.
@@ -31,10 +31,16 @@ The source repository is published on GitHub. See the Actions tab for remote tes
 - Group guides, references, examples, and release notes under `docs/`.
 - Bundle systemd templates with the application package.
 - Add source launchers, a rendered Markdown report example, and a pending-work register.
-- Check all Python docstrings, Python 3.10 syntax, and local documentation links in CI.
+- Examine all Python docstrings, Python 3.10 syntax, and local documentation links in CI.
 
 ## Commit checks
 
 - Add native pre-commit, commit-message, and pre-push hooks.
 - Test staged and pushed snapshots without private local configuration.
 - Require Conventional Commit subjects and pull-request titles in CI.
+
+## Language review
+
+- Separate instructions into individual steps.
+- Simplify report recovery instructions and source documentation.
+- Record software terminology and the limits of the agent language review.

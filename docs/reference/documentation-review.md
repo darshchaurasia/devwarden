@@ -1,8 +1,8 @@
 ---
 type: Review Record
 title: Documentation review
-description: Record format checks, language review scope, and remaining conformance work.
-status: draft
+description: Record the format review, language changes, evidence, and limits.
+status: stable
 sources:
   - id: okf
     resource: https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md
@@ -14,60 +14,89 @@ sources:
 
 # Documentation review
 
+## Review result
+
+The agent language review is complete for the scope below, as of October 18, 2026.
+The review used the official ASD-STE100 Issue 9 writing rules and dictionary.[^ste]
+The project does not distribute the standard or its dictionary.
+This record does not claim independent certification or full STE conformance.
+
+## Scope
+
+The review covered these project texts:
+
+- README and the documentation index.
+- Configuration and operation guides.
+- Contribution instructions, security policy, and pull-request form.
+- Technical terms, release notes, and report examples.
+- Python module, class, and function docstrings.
+- Python source comments.
+- Application report notes and error recovery instructions.
+
+The agent examined wording, sentence structure, procedure steps, and technical terms.
+The agent used dictionary entries to select alternatives for general verbs.
+The [glossary](terms.md) records software-specific nouns and verbs.
+These terms have meanings within this project, not general dictionary approval.
+
+## Rules and changes
+
+| Issue 9 rules | Examination and changes |
+|---|---|
+| 1.1–1.14: words | Replace general verbs such as `inspect`, `retain`, and `preserve` with simpler alternatives. Record software terms separately. |
+| 2.1–2.2: groups of nouns | Examine headings, glossary terms, report labels, and configuration descriptions. Explain software terms in the glossary. |
+| 3.1–3.7: verbs | Use direct instructions and active descriptions. Rewrite unnecessary passive constructions and complex verb phrases. |
+| 4.1–4.5: sentences | Shorten sentences. Use explicit subjects and articles where needed. Keep exact command names unchanged. |
+| 5.1–5.5: procedures | Separate the contribution steps and report recovery instructions. Put necessary conditions before their instructions. |
+| 6.1–6.6: descriptions | Keep each paragraph on one topic. Examine prose for the descriptive sentence-length limit. |
+| 7.1–7.3: safety instructions | Keep commands about data loss and credentials direct. Keep the cause and consequence near the instruction. |
+| 8.1–8.7: punctuation and counts | Examine punctuation and sentence lengths. Treat code, identifiers, and table labels separately from prose sentences. |
+| 9.1–9.4: writing practice | Rewrite sentences instead of replacing words mechanically. Use consistent names for software items and operations. |
+
+Examples of project changes:
+
+| Previous wording | Revised wording |
+|---|---|
+| Preserve development work. | Keep development work. |
+| Inspect the diagnostics and saved run log; resolve the issue before rerunning. | Examine the diagnostics and saved log. Correct the problem. Start the updater again. |
+| Failed delivery retains the queued report. | If delivery fails, the queue keeps the report. |
+| The default branch was not confirmed current. | The updater could not make sure that the default branch is current. |
+
 ## Format
 
 The documentation targets Open Knowledge Format v0.2.[^okf]
-Each concept document has YAML frontmatter with a nonempty `type`.
-The root `index.md` declares the bundle version and lists documents.
-Code, environment examples, unit templates, and the legal license document are not OKF concepts.
-The license retains its standard legal text without added metadata.
+Concept documents have YAML frontmatter with a nonempty `type`.
+The root `index.md` declares the bundle version and lists the documents.
+Code, environment examples, unit templates, and the license are not OKF concepts.
+The license keeps its standard legal text without added metadata.
 
-The original knowledge-catalog link now points readers to the separate canonical OKF repository.
-This project follows that canonical specification.
+## Evidence
 
-## Language
-
-The requested language standard is ASD-STE100 Issue 9.[^ste]
-An existing local copy of the official January 2025 standard was available for reference.
-The review used its writing-rule summaries and dictionary sections.
-The project does not redistribute the standard or its dictionary.
-
-Documentation uses short instructions, short descriptive paragraphs, and consistent technical terms.
-Software-specific terms are defined in the [glossary](terms.md).
-Source functions contain docstrings. Safety decisions have comments.
-Commands, protocol identifiers, and third-party Git errors retain their original forms.
-
-## Verification results
-
-| Check | Result |
+| Examination | Result |
 |---|---|
-| Offline tests | 20 tests passed on local Python 3.14, including commit-hook and staged-tree checks. |
-| Python compatibility | All source files passed Python 3.10 syntax parsing. The initial release matrix passed on Python 3.10, 3.12, and 3.14; the layout release runs the same matrix. |
-| OKF metadata | All concept frontmatter parsed as YAML and contained a nonempty type. |
-| Documentation links | All local Markdown links resolved. |
-| Source docstrings | All Python modules, functions, and classes contained docstrings. CI enforces this check. |
-| Service installation | Generated user units passed systemd validation. |
-| Live operation | Reorganized service completed a real run: 83 current, 2 excluded, 0 errors. |
-| Mail | SMTP accepted a test message and the live update report. |
-| Privacy | Distribution excludes local environment, credentials, reports, and bytecode. |
+| Offline tests | 20 tests passed after the language changes. |
+| Python documentation | All Python modules, classes, and functions have docstrings. The offline tests enforce this requirement. |
+| Local links | The offline tests resolve the local Markdown links. |
+| Compatibility | The source passes Python 3.10 syntax parsing. CI also tests Python 3.10, 3.12, and 3.14. |
+| Installed service after this review | The run completed with 82 current repositories, 1 update, 2 exclusions, and no repository errors. |
+| Email after this review | SMTP accepted the test message and live report. The delivery queue was empty afterward. |
 
-The initial publication also passed the [GitHub Actions test matrix](https://github.com/darshchaurasia/devwarden/actions/runs/39115520678).
-The matrix ran all 13 tests on Python 3.10, 3.12, and 3.14.
-No independent language approval is claimed.
+The service and email evidence above refers to the installed runtime with the revised report text.
+CI results remain available in [GitHub Actions](https://github.com/darshchaurasia/devwarden/actions).
 
-## Review limits
+## Exact text and limits
 
-The checks provide an agent review, not a full language-conformance certification.
-The test suite cannot confirm approved word meaning or part of speech in every sentence.
-The following work remains before a full ASD-STE100 conformance claim:
+These items keep their original forms:
 
-- Review all prose against approved meanings and parts of speech.
-- Confirm all technical noun and technical verb classifications.
-- Review generated diagnostic guidance and all code comments in context.
-- Have a qualified reviewer confirm the complete language review.
+- Git and Python identifiers, commands, file paths, protocol names, and configuration keys.
+- Log status markers such as `ERROR`, `SKIP`, and `CURRENT`.
+- External Git and SMTP error text, which DevWarden does not author.
+- Standard license text and legal terms that require their exact legal meaning.
 
-These limits do not indicate an AI dependency in the service.
-The runtime uses deterministic local code.
+The test suite does not establish approved word meaning or part of speech for every occurrence.
+The review is an agent examination with the stated scope, not a certified language assessment.
+A full conformance claim needs evidence beyond sentence counts and a terminology list.
+No full conformance claim is made here.
+The service has no dependency on AI or on this review process.
 
-[^okf]: Open Knowledge Format v0.2, sections 3, 4, 8, and 11.
-[^ste]: ASD-STE100 Issue 9, writing rules and dictionary.
+[^okf]: Open Knowledge Format v0.2, concept documents and the bundle index.
+[^ste]: ASD-STE100 Issue 9, writing rules and dictionary, January 15, 2025.

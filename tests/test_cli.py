@@ -1,4 +1,4 @@
-"""Check installation without changing a real user service manager."""
+"""Examine installation without changing a real user service manager."""
 import json
 from pathlib import Path
 import subprocess
@@ -12,10 +12,10 @@ from devwarden import cli
 
 
 class InstallTest(unittest.TestCase):
-    """Check generated units, migration, and repeat installation."""
+    """Examine generated units, migration, and repeat installation."""
 
     def test_install_is_private_and_repeatable(self):
-        """Install into isolated paths and retain private mail settings."""
+        """Install into isolated paths and keep private mail settings."""
         with tempfile.TemporaryDirectory(prefix='repo updater ') as tmp:
             base = Path(tmp)
             cfg, state, app = base / 'config', base / 'state', base / 'runtime'

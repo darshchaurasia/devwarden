@@ -34,7 +34,7 @@ Changes to the source `.env` take effect in the installed service after setup ru
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `DEVWARDEN_ROOT` | `~/code` | Folder whose immediate children are checked. |
+| `DEVWARDEN_ROOT` | `~/code` | Folder that contains the repositories to examine. |
 | `DEVWARDEN_CALENDAR` | `Fri *-*-* 06:00:00` | systemd calendar expression. |
 | `DEVWARDEN_RETENTION_DAYS` | `90` | Retention period for timestamped run logs. Minimum: 1. |
 | `DEVWARDEN_SMTP_HOST` | `smtp.gmail.com` | SMTP server name. |
@@ -45,8 +45,8 @@ Changes to the source `.env` take effect in the installed service after setup ru
 | `DEVWARDEN_SMTP_USERNAME` | Sender | SMTP login name. |
 | `DEVWARDEN_SMTP_PASSWORD` | Empty | SMTP password. Prefer the hidden configuration prompt. |
 
-Email remains off if no sender or recipient is configured.
-Both addresses are required to send mail.
+Email stays off if no sender or recipient is configured.
+The sender and recipient addresses are necessary to send mail.
 Set port `587` when you select `starttls`, unless your provider specifies another port.
 
 ### Select a time zone
@@ -57,7 +57,7 @@ Append a time zone to the calendar expression:
 DEVWARDEN_CALENDAR="Fri *-*-* 06:00:00 Etc/UTC"
 ```
 
-Validate a schedule with `systemd-analyze calendar`.
+Examine a schedule with `systemd-analyze calendar`.
 Calendar expressions follow systemd rules.[^timer]
 
 ## File locations
@@ -70,15 +70,15 @@ Calendar expressions follow systemd rules.[^timer]
 | `~/.local/share/devwarden/` | Installed package under `src/devwarden/`, including service templates. |
 | `~/.local/bin/devwarden` | Installed command. |
 | `~/.config/systemd/user/devwarden*` | Active user units. |
-| `~/.local/state/devwarden/` | Logs, reports, queue, locks, and retained worktrees. |
+| `~/.local/state/devwarden/` | Logs, reports, queue, locks, and kept worktrees. |
 
 Advanced users can set `DEVWARDEN_CONFIG_DIR` and `DEVWARDEN_STATE_DIR` in the process environment before setup.
 Do not put these two variables in `.env`.
-Installed units retain the selected storage paths.
+Installed units keep the selected storage paths.
 
 Private JSON files and the installed environment file use mode `600`.
 New state directories use mode `700`.
-The source-root `.env` must also remain private.
+The source-root `.env` must also stay private.
 
 ## Installation without prompts
 
@@ -88,14 +88,14 @@ python3 scripts/devwarden.py setup --yes --root ~/code \
 ```
 
 The repository folder must exist before setup.
-The installer validates the schedule before it installs units.
+The installer examines the schedule before it installs units.
 
 ## Migrate an older installation
 
 Run setup from this project version.
 If `gmail.json` exists in private configuration storage, setup creates `smtp.json` when necessary.
 The older sender becomes the initial recipient.
-The original private credential file remains for recovery.
+The original private credential file stays for recovery.
 Review the recipient with `devwarden email-configure` if necessary.
 No credential is copied into the project.
 

@@ -1,4 +1,4 @@
-"""Check source documentation, local links, and the public source launcher."""
+"""Examine source documentation, local links, and the public source launcher."""
 import ast
 from pathlib import Path
 import re

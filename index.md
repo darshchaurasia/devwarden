@@ -6,7 +6,7 @@ okf_version: "0.2"
 
 - [DevWarden](README.md) - Install a local service that updates GitHub repositories and reports the results.
 - [Configuration](docs/guides/configuration.md) - Set repository, schedule, retention, and mail parameters without code changes.
-- [Operation and recovery](docs/guides/operations.md) - Check service results and recover from common failures.
+- [Operation and recovery](docs/guides/operations.md) - Examine service results and recover from common failures.
 
 # Project
 

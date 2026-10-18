@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fast-forward clean GitHub checkouts directly inside ~/code."""
+"""Update clean GitHub default branches in the selected repository folder."""
 import argparse
 import collections
 import fcntl
@@ -51,7 +51,7 @@ def git(repo, *args, retry=False):
 
 
 def github_origin(url):
-    """Check whether an origin URL uses the supported GitHub host."""
+    """Examine whether an origin URL uses the supported GitHub host."""
     return bool(re.match(r'^(https?://(?:[^/@]+@)?github\.com/|ssh://(?:[^/@]+@)?github\.com/|git@github\.com:)', url))
 
 
@@ -72,7 +72,7 @@ def blockers(repo, branch=None):
 
 
 def optional(repo, *args):
-    """Read optional Git data without treating absence as a fatal error."""
+    """Read optional Git data. Return an empty string if the command fails."""
     try:
         return git(repo, *args)
     except RuntimeError:
@@ -80,7 +80,7 @@ def optional(repo, *args):
 
 
 def update_in_worktree(repo, branch, metadata):
-    """Update the default branch without changing the active development checkout."""
+    """Update the default branch. Keep the active development checkout unchanged."""
     target = f'refs/remotes/origin/{branch}'
     git(repo, 'fetch', '--no-tags', '--no-recurse-submodules', 'origin',
         f'+refs/heads/{branch}:{target}', retry=True)
@@ -101,18 +101,18 @@ def update_in_worktree(repo, branch, metadata):
         return result
     finally:
         if added:
-            # Never force removal: unexpected local files must be retained.
+            # Do not force removal. Keep unexpected local files.
             git(repo, 'worktree', 'remove', str(checkout))
         if not checkout.exists():
             directory.rmdir()
 
 
 def update(repo, dry_run, metadata=None):
-    """Confirm or advance a default branch while preserving local work.
+    """Update a default branch. Keep local development work.
 
     Args:
         repo: Path to a Git working directory.
-        dry_run: Check readiness without fetching or changing branches.
+        dry_run: Examine update readiness. Do not fetch or change branches.
         metadata: Mutable report fields populated during the check.
 
     Returns:
@@ -126,7 +126,7 @@ def update(repo, dry_run, metadata=None):
         metadata['url'] = 'https://github.com/' + match_url[1] + '/' + match_url[2]
     if not github_origin(origin):
         return 'SKIP', 'excluded: origin is not GitHub'
-    # Ask the server, so branch renames and non-main defaults are respected.
+    # Ask the server for its current default branch. Do not assume main.
     remote = git(repo, 'ls-remote', '--symref', 'origin', 'HEAD', retry=True)
     match = re.search(r'^ref: refs/heads/(.+)\tHEAD$', remote, re.M)
     if not match:
@@ -146,7 +146,7 @@ def update(repo, dry_run, metadata=None):
         if reason and reason != 'local changes or untracked files':
             return 'ERROR', reason
         if dry_run:
-            return 'READY', f'would update {branch} in a temporary worktree; preserve {metadata["branch"]} and its local files'
+            return 'READY', f'would update {branch} in a temporary worktree. Keep {metadata["branch"]} and its local files'
         return update_in_worktree(repo, branch, metadata)
     if reason:
         return 'ERROR', reason
@@ -178,7 +178,7 @@ def main():
     """Read command arguments and start the selected local operation."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(load_settings()['root']).expanduser())
-    parser.add_argument('--dry-run', action='store_true', help='Inspect without fetching or changing checkouts')
+    parser.add_argument('--dry-run', action='store_true', help='Examine readiness. Do not fetch or change checkouts')
     args = parser.parse_args()
     if not args.root.is_dir():
         parser.error('The repository root is not a directory.')

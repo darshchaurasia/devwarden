@@ -38,7 +38,7 @@ def unit_argument(value):
 
 
 def install(args):
-    """Install runtime files and user units without copying credentials."""
+    """Install runtime files and user units. Keep credentials in private configuration."""
     if not shutil.which('git') or not shutil.which('systemctl'):
         raise RuntimeError('Install Git and start a systemd user session first.')
     subprocess.run(['systemctl', '--user', 'show-environment'], check=True, capture_output=True)
@@ -92,7 +92,7 @@ def install(args):
     UNITS.mkdir(parents=True, exist_ok=True)
     for name in UNIT_NAMES:
         text = (APP / 'src/devwarden/resources/systemd' / name).read_text()
-        # Paths are inserted as individual quoted arguments, not shell commands.
+        # Insert each path as one quoted argument. Do not use shell commands.
         for key, value in replacements.items():
             text = text.replace(key, value)
         (UNITS / name).write_text(text)
@@ -104,20 +104,20 @@ def install(args):
 
 
 def doctor():
-    """Show prerequisites and service state without printing secrets."""
+    """Show prerequisites and service state. Do not print secrets."""
     from .config import mail_settings
     print('Python:', sys.version.split()[0])
     print('Git:', shutil.which('git') or 'not found')
     settings = load_settings()
     print('Repository root exists:', Path(settings['root']).expanduser().is_dir())
     print('Private configuration:', CONFIG_DIR)
-    print('Email:', 'configured; run email-test to verify' if mail_settings() else 'off; local reports only')
+    print('Email:', 'configured. Use email-test to test delivery' if mail_settings() else 'off; local reports only')
     command('systemctl', '--user', 'list-timers', 'devwarden*', '--no-pager')
     subprocess.run(['loginctl', 'show-user', str(os.getuid()), '-p', 'Linger'], check=False)
 
 
 def uninstall():
-    """Remove the service and runtime but retain private settings and reports."""
+    """Remove the service and runtime but keep private settings and reports."""
     command('systemctl', '--user', 'disable', '--now', 'devwarden.timer', 'devwarden-mail.timer')
     command('systemctl', '--user', 'stop', 'devwarden.service', 'devwarden-mail.service')
     for name in UNIT_NAMES:
@@ -126,7 +126,7 @@ def uninstall():
     BIN.unlink(missing_ok=True)
     if APP.exists():
         shutil.rmtree(APP)
-    print('Removed the service. Private settings and reports were retained.')
+    print('Removed the service. Private settings and reports stay in user storage.')
 
 
 def main():
