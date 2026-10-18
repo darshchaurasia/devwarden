@@ -1,0 +1,16 @@
+name: Feature proposal
+description: Discuss a change before implementation.
+title: "Proposal: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and use case
+      description: Explain who needs the change and why.
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed behavior and safety considerations
+      description: Explain how development work and private data remain protected.

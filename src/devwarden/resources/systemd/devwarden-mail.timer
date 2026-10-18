@@ -1,0 +1,10 @@
+[Unit]
+Description=Retry repository report email each hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=5m
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+settings.json
+smtp.json
+gmail.json
+*.log
+outbox/
+worktrees/
+latest-report.*
+
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devwarden"
+version = "0.1.0"
+description = "Scheduled maintenance for local Git projects with diagnostic reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "LicenseRef-PolyForm-Perimeter-1.0.1"
+license-files = ["LICENSE.md"]
+authors = [{name = "Darsh Chaurasia"}]
+dependencies = []
+
+[project.scripts]
+devwarden = "devwarden.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+devwarden = ["resources/systemd/*.service", "resources/systemd/*.timer"]
