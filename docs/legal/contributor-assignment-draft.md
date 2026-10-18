@@ -6,6 +6,12 @@ status: draft
 sources:
   - resource: https://www.copyright.gov/title17/92chap2.html
     title: US Copyright Act, ownership and transfers
+  - resource: https://www.azleg.gov/ars/44/07007.htm
+    title: Arizona recognition of electronic records and signatures
+  - resource: https://www.azleg.gov/ars/44/07009.htm
+    title: Arizona attribution and effect of signatures
+  - resource: https://www.govinfo.gov/content/pkg/USCODE-2024-title28/html/USCODE-2024-title28-partIV-chap85-sec1338.htm
+    title: Federal jurisdiction over copyright claims
   - resource: https://www.gnu.org/prep/maintain/html_node/Copyright-Papers.html
     title: GNU maintainer guidance on contribution assignments
 ---
@@ -20,7 +26,10 @@ Before use, the owner must complete the open fields and adopt a reviewed final v
 The owner must confirm the applicable legal requirements for each rights holder.
 Legal terms in this draft retain their legal meanings. No STE conformance claim applies to the agreement text.
 
-**Draft version:** 0.1, October 18, 2026.
+**Draft version:** 0.2, October 18, 2026.
+
+Proposed terms now specify Arizona law, Maricopa County, and a private PDF signing process.
+Owner adoption and independent legal review remain pending.
 
 ## 1. Parties and project
 
@@ -52,7 +61,7 @@ The assignment covers the full period of those rights, including applicable exte
 
 For future Contributions, the assignment takes effect when the relevant rights arise, to the extent permitted by applicable law.
 Where a further instrument is legally necessary, the Contributor agrees to execute that instrument to complete the intended assignment.
-The Owner will pay reasonable, agreed costs of that further documentation.
+Any expenses or additional paid services require a separate written agreement before they are incurred.
 
 The assignment includes the transferable rights to reproduce, modify, distribute, publicly display, publicly perform, license, sublicense, and commercially exploit the Contributions.
 The Owner may distribute them under the Project license or other terms, incorporate them into a proprietary product, charge for them, or stop distributing future versions.
@@ -87,7 +96,11 @@ The treatment of those rights must be confirmed in legal review before this draf
 
 ## 6. Payment, use, and prior licenses
 
-**Consideration and execution requirements: [TO BE COMPLETED AFTER LEGAL REVIEW].**
+The Contributions are voluntary. No payment or royalty is promised unless separately agreed in writing.
+In exchange for the Contributor's assignment and promises, the Owner agrees to give the Contributor a copy of the executed agreement and to keep the contribution and authorship records for the Contributions that the Owner accepts.
+The Owner will not remove accurate authorship information from those private records merely because copyright was assigned.
+These are proposed mutual promises, not a claim that money has been paid.
+Their adequacy and any additional requirements must be confirmed during legal review before adoption.
 
 Unless separately agreed in writing, a Contribution does not create a right to payment, royalties, employment, partnership, or project governance.
 This clause does not remove mandatory rights or substitute for legally necessary consideration or execution formalities.
@@ -98,17 +111,25 @@ It does not revoke valid licenses already granted to recipients before the assig
 
 ## 7. Governing law and administration
 
-**Governing law: [COUNTRY AND STATE OR OTHER JURISDICTION — OWNER TO COMPLETE].**
+This agreement is governed by the laws of the State of Arizona, United States, without applying its conflict-of-laws rules, and by applicable United States federal law.
+This choice does not displace mandatory law that the parties cannot validly exclude.
 
-**Dispute forum: [OWNER TO COMPLETE AFTER LEGAL REVIEW].**
+Subject to applicable subject-matter jurisdiction, the parties consent to exclusive jurisdiction and venue in the state courts located in Maricopa County, Arizona, or the United States District Court for the District of Arizona sitting in Phoenix.
+A claim within exclusive federal jurisdiction must be brought in the competent federal court, not a state court.
+This clause does not create jurisdiction where the applicable law does not permit it.
 
 This agreement takes effect on the date of the last required signature.
 The parties must retain the exact executed version, its schedules, and evidence of authority and signature.
 Any amendment must be recorded in writing and accepted by both parties.
 Invalidity of a clause does not remove other clauses where the law permits them to operate separately.
 
-The final version must specify the permitted signature method and any witness, deed, or other execution requirements.
-A public pull-request checkbox is not the signature process for this draft.
+The proposed signature method is a private PDF exchange.
+Each party may sign the complete PDF by hand or use an electronic signature attached to the complete agreement with the intent to sign it.
+The parties consent to exchange the signed agreement and keep the signed records electronically.
+The exchange must identify the signatory, agreement version, schedules, signature date, and authority to sign.
+Both parties must receive the final executed copy.
+A typed name in an unsigned public issue or a pull-request checkbox does not satisfy this agreed process.
+Additional formalities required by applicable mandatory law must be satisfied before the Owner accepts the assignment.
 
 ## Schedule A — existing Contributions
 

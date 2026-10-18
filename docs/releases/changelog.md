@@ -50,3 +50,9 @@ The source repository is published on GitHub. See the Actions tab for remote tes
 - Add a draft copyright assignment to Darsh Chaurasia.
 - Add a private signing procedure and the decisions needed before use.
 - Keep external contributions on hold until the agreement and signature process are adopted.
+
+## Assignment preparation
+
+- Propose Arizona law and competent courts in Maricopa County or the federal court in Phoenix.
+- Prepare private PDF signing instructions, a request template, and empty intake and register templates.
+- Record the remaining owner adoption and legal review requirements.

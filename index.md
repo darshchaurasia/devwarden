@@ -21,3 +21,6 @@ okf_version: "0.2"
 
 - [Assignment draft](docs/legal/contributor-assignment-draft.md) - Review proposed contribution ownership terms.
 - [Signing process](docs/legal/signing-process.md) - Prepare and verify private contribution assignments.
+
+- [Assignment readiness](docs/legal/readiness-review.md) - Record prepared terms and the requirements before adoption.
+- [Private signing request](docs/legal/signing-request.example.md) - Prepare a request after the agreement is adopted.

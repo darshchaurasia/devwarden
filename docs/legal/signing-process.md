@@ -16,24 +16,71 @@ sources:
 The [assignment document](contributor-assignment-draft.md) is a draft.
 It names Darsh Chaurasia as the recipient of the assigned copyright.
 It covers identified existing contributions and proposes coverage for future contributions.
-It is not ready for signatures.
+The proposed terms specify Arizona law and Maricopa County.
+The private PDF signing procedure and register templates are prepared.
+It is not ready for signatures until adoption and legal review.
 External copyrightable contributions must not be merged yet.
 
 ## Prepare the final agreement
 
-1. Select the governing law.
-2. Select the dispute forum.
-3. Obtain legal review of the assignment and its use across contributor jurisdictions.
-4. Confirm the requirements for consideration and execution.
-5. Select an approved signature method.
-6. Set up a private channel for completed documents.
-7. Adopt the final agreement with a version and effective date.
-8. Replace the draft links in the contribution instructions with the adopted agreement.
+1. Examine the proposed Arizona law and Maricopa County clauses.
+2. Obtain legal review of the assignment and its use across contributor jurisdictions.
+3. Confirm the proposed non-monetary promises and execution requirements.
+4. Approve the proposed private PDF signature method.
+5. Confirm access to the private intake mailbox and record storage.
+6. Adopt the final agreement with a version and effective date.
+7. Replace the draft links in the contribution instructions with the adopted agreement.
 
 The review must examine future contributions, employer-owned work, patent permissions, and personal rights that cannot be assigned.
 Legal review must also establish the evidence needed for the chosen signature method.
 A repository comment alone is not an approved assignment process.
 A contributor license agreement or commit sign-off is not a substitute for the required assignment.
+
+## Private intake setup
+
+Use the existing owner mailbox for a private PDF exchange.
+No new paid service or public email address is needed.
+Store the actual contact address in `~/.config/devwarden/assignment-intake.json`.
+Do not put it in the source repository.
+The [intake template](../../config/assignment-intake.example.json) contains no personal address.
+
+Use `~/.local/state/devwarden/assignments/` for the private register and documents.
+Create these directories with mode `700`:
+
+- `pending/` for documents that have not been verified.
+- `executed/` for the complete signed agreements.
+- `evidence/` for original correspondence and authority evidence.
+
+Copy the [register template](../../config/assignment-register.example.csv) to `register.csv` only if that file does not exist.
+Use mode `600` for the register, contact configuration, and individual documents.
+For custom DevWarden state paths, use an equivalent directory outside the checkout.
+Do not overwrite an existing register during setup.
+Back up actual records to access-controlled storage that the owner selects.
+No remote backup is provisioned by this setup.
+
+The owner's local intake settings and empty register have been prepared.
+They do not contain an executed agreement or approve any contributor.
+The mailbox has been tested with the existing SMTP delivery test.
+That test does not prove that a contributor's identity or signature is valid.
+
+## Private signature exchange
+
+1. After adoption, export the complete agreement and schedules to PDF.
+2. Record its version and SHA-256 hash.
+3. Use the [private request template](signing-request.example.md) to prepare the message.
+4. Send it through the private channel agreed with the rights holder.
+5. Obtain the signed complete PDF and any electronic-signature evidence.
+6. Save the original email or other delivery record in `evidence/`.
+7. Verify the identity, signature intent, rights holder, and included schedules.
+8. Obtain the owner's signature.
+9. Give both parties the same complete executed copy.
+10. Record the executed file's hash and private location in the register.
+
+A signature can be handwritten or electronic under the proposed process.
+An electronic signature must be attached to the complete agreement and used with intent to sign it.
+If mandatory law requires additional formalities, satisfy them before accepting that contributor's assignment.
+An unsigned attachment, public checkbox, or Git commit sign-off is not this process.
+The project does not send request messages automatically.
 
 ## Process a contributor
 
@@ -73,7 +120,7 @@ Do not make a contributor's email address or legal document public through an au
 
 ## Merge gate
 
-The owner currently verifies assignments manually.
+The owner will verify assignments manually after the agreement is adopted.
 The repository test matrix and CODEOWNERS review do not validate legal signatures.
 The owner must examine the assignment record before approval.
 
