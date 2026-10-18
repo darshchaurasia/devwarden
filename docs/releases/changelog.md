@@ -62,3 +62,8 @@ The source repository is published on GitHub. See the Actions tab for remote tes
 - Adopt assignment version 1.0 and the private PDF signing process under the owner's express approval.
 - Remove the lawyer-review prerequisite without claiming lawyer approval.
 - Keep verification of each rights holder's signed assignment as a condition of merge.
+
+## Report parser correction
+
+- Keep report header explanations out of repository result rows and email subject counts.
+- Add a regression check through report creation, saved output, and queued mail delivery.

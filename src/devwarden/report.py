@@ -104,6 +104,13 @@ def html_value(value, label=None):
     return escape(value)
 
 
+def result_match(line):
+    """Read one repository result. Exclude explanations in the report header."""
+    if line.startswith(('SKIP entries ', 'ERROR entries ')):
+        return None
+    return re.match(r'^(ERROR|SKIP|UPDATED|CURRENT|READY) (.+?): (.*)$', line)
+
+
 def format_report(body):
     """Build grouped text and HTML reports from recorded results."""
     groups = {key: [] for key in ('ERROR', 'SKIP', 'UPDATED', 'CURRENT', 'READY')}
@@ -117,7 +124,7 @@ def format_report(body):
             except (ValueError, KeyError, TypeError):
                 extra.append('The repository metadata cannot be read. Examine the raw log.')
             continue
-        match = re.match(r'^(ERROR|SKIP|UPDATED|CURRENT|READY) (.+?): (.*)$', line)
+        match = result_match(line)
         if match:
             status, name, detail = match.groups()
             detail = detail.replace(' (submodules and LFS downloads are not updated)', '')
@@ -182,7 +189,11 @@ def format_report(body):
 
 def report_subject(body):
     """Summarize recorded results in an email subject."""
-    counts = {key: len(re.findall(r'^' + key + r' .+?: ', body, re.M)) for key in ('UPDATED', 'SKIP', 'ERROR')}
+    counts = dict.fromkeys(('UPDATED', 'SKIP', 'ERROR'), 0)
+    for line in body.splitlines():
+        match = result_match(line)
+        if match and match[1] in counts:
+            counts[match[1]] += 1
     incomplete = not any(line.startswith('Summary:') for line in body.splitlines())
     label = 'Run incomplete' if incomplete else ('Action needed' if counts['ERROR'] else 'Complete')
     return f"[DevWarden] {label} | {counts['UPDATED']} updated, {counts['SKIP']} excluded, {counts['ERROR']} errors"

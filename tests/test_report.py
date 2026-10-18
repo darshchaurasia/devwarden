@@ -75,6 +75,32 @@ class ReportTest(unittest.TestCase):
         partial, _ = report.format_report(body.rsplit('Summary:', 1)[0])
         self.assertIn('Run did not finish', partial)
 
+    def test_report_notes_are_not_repository_results(self):
+        """Keep report explanations out of result rows and email subject counts."""
+        with tempfile.TemporaryDirectory() as tmp:
+            state = Path(tmp)
+            log = state / 'run.log'
+            log.write_text('DevWarden started example\nCURRENT example: main\nSummary: CURRENT=1\n')
+            (state / 'current-log').write_text(str(log))
+            with patch.object(report, 'STATE', state), patch.object(report, 'send') as send, \
+                    patch.object(report, 'mail_settings', return_value={'sender': 'test@example.com'}), \
+                    patch.dict(os.environ, SERVICE_RESULT='success', EXIT_STATUS='0'):
+                report.report()
+            subject, body = send.call_args.args
+            self.assertIn('Complete', subject)
+            self.assertIn('0 errors', subject)
+            for output in (state / 'latest-report.txt', state / 'latest-report.html'):
+                rendered = output.read_text()
+                self.assertIn('Errors — action required (0)', rendered)
+                self.assertNotIn('entries need attention', rendered)
+            # Queued messages with the old explanation must also render correctly.
+            body += 'ERROR real-repo: remote has branches but no default branch\n'
+            text, html = report.format_report(body)
+            self.assertIn('Errors — action required (1)', text)
+            self.assertIn('real-repo', html)
+            self.assertNotIn('entries need attention', html)
+            self.assertIn('1 errors', report.report_subject(body))
+
     def test_authentication_waits_for_server_challenge(self):
         """Make sure that authentication waits for the SMTP server challenge."""
         with tempfile.TemporaryDirectory() as tmp:
