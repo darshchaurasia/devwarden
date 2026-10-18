@@ -1,0 +1,3 @@
+#!/bin/sh
+# Use the checkout launcher so no hook framework is required.
+exec python3 "$(git rev-parse --show-toplevel)/scripts/checks.py" commit-msg "$@"
