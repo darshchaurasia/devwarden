@@ -81,7 +81,7 @@ Git does not enable repository hooks automatically when you clone a project.
 The command sets this clone's `core.hooksPath` to `.githooks`.
 The hooks require Python 3, Git, and `tar` on Linux or WSL.
 
-| Hook | Examine |
+| Hook | Check |
 |---|---|
 | `pre-commit` | Examine staged whitespace and run the offline tests on an exported copy of the staged tree. |
 | `commit-msg` | Require a Conventional Commit subject of at most 72 characters and a blank line before the body. |

@@ -15,3 +15,10 @@ latest-report.*
 build/
 dist/
 *.egg-info/
+
+# Private contribution agreements and intake records.
+assignment-intake.json
+assignment-register.csv
+assignment-records/
+assignments/
+register.csv

@@ -7,10 +7,13 @@ status: draft
 
 # Pending work
 
-| Task | Required before |
+| Item | Status |
 |---|---|
-| Adopt the [assignment draft](../legal/contributor-assignment-draft.md) after completing governing law, dispute forum, consideration, execution, and legal review. | Accepting external copyrightable contributions. |
-| Set up the private signature channel and register in the [signing procedure](../legal/signing-process.md). | Accepting signed assignments and approving external work. |
+| Arizona law and Maricopa County forum clauses | Prepared in [draft version 0.2](../legal/contributor-assignment-draft.md). |
+| Private PDF signing process and request template | Prepared in the [signing procedure](../legal/signing-process.md). No signatures collected. |
+| Owner intake mailbox and local private register | Initialized outside the public repository. The register contains no executed assignments. |
+| Legal readiness examination | Agent review recorded in [readiness review](../legal/readiness-review.md). Independent legal review has not occurred. |
+| Final adoption | Pending owner approval and the legal review required by the existing policy. External work remains on hold. |
 
 The agent language review is complete. See its [scope and limits](documentation-review.md).
 No full STE conformance claim is made.
