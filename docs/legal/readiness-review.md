@@ -1,10 +1,10 @@
 ---
 type: Review Record
 title: Assignment readiness review
-description: Record prepared terms, private intake controls, and the remaining adoption requirements.
-status: draft
+description: Record adopted terms, private intake controls, owner approval, and review limits.
+status: stable
 sources:
-  - resource: contributor-assignment-draft.md
+  - resource: contributor-assignment.md
   - resource: signing-process.md
   - resource: https://www.copyright.gov/title17/92chap2.html
   - resource: https://www.azleg.gov/ars/44/07007.htm
@@ -14,22 +14,22 @@ sources:
 
 # Assignment readiness review
 
-## Prepared terms
+## Adopted terms
 
-| Item | Proposed arrangement |
+| Item | Arrangement |
 |---|---|
 | Copyright recipient | Darsh Chaurasia, personally. |
 | Governing law | Arizona law and applicable US federal law. Mandatory law remains applicable. |
 | Dispute forum | Competent state courts in Maricopa County, or the federal district court sitting in Phoenix. |
 | Covered work | Identified existing DevWarden contributions and future submissions within the agreement's scope. |
-| Payment | No compensation unless separately agreed. The proposed agreement contains mutual recordkeeping promises. |
+| Payment | No compensation unless separately agreed. The agreement contains mutual recordkeeping promises. |
 | Signature method | Private exchange of the complete PDF, signed by hand or electronically with intent to sign. |
 | Evidence | Complete executed document, schedules, hashes, identity evidence, and rights-holder authority. |
 | Owner process | Manual examination before approval. No automatic legal-signature verification. |
 
 The forum provision preserves the distinction between federal and state jurisdiction.
 An Arizona electronic signature can have legal effect, but identity, intent, and the surrounding circumstances still matter.
-The draft does not claim that a GitHub username proves identity or ownership.
+The agreement does not claim that a GitHub username proves identity or ownership.
 
 ## Private intake and records
 
@@ -51,9 +51,13 @@ The review did not execute an agreement or establish any contributor's identity.
 This is drafting assistance and a source-based agent review.
 It is not an independent legal opinion or a guarantee that the agreement is enforceable.
 
-## Remaining adoption requirements
+## Owner adoption
 
-Before signatures are collected, the owner must approve the final version and obtain the legal review required by the current project policy.
-That review must resolve the adequacy of consideration, future assignment, personal rights, international contributors, and execution formalities.
+Darsh Chaurasia approved the terms and authorized proceeding without lawyer approval on October 18, 2026.
+Version 1.0 and the private signing procedure are adopted for use.
+The previous policy prerequisite for lawyer review is removed by that express owner instruction.
 No external reviewer has been engaged and no professional approval is claimed.
-The agreement stays a draft until those requirements are satisfied.
+
+This adoption approves the form and process. It does not sign an assignment for any contributor.
+The private register still contains no executed assignments.
+Each applicable rights holder must sign before contributed work is accepted.

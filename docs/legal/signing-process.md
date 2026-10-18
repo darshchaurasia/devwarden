@@ -2,9 +2,9 @@
 type: Procedure
 title: Contributor assignment process
 description: Prepare and verify a private assignment before accepting contributed work.
-status: draft
+status: stable
 sources:
-  - resource: contributor-assignment-draft.md
+  - resource: contributor-assignment.md
   - resource: ../../.github/CONTRIBUTING.md
   - resource: https://www.copyright.gov/title17/92chap2.html
 ---
@@ -13,28 +13,17 @@ sources:
 
 ## Current status
 
-The [assignment document](contributor-assignment-draft.md) is a draft.
+The owner adopted [assignment version 1.0](contributor-assignment.md) on October 18, 2026.
 It names Darsh Chaurasia as the recipient of the assigned copyright.
-It covers identified existing contributions and proposes coverage for future contributions.
-The proposed terms specify Arizona law and Maricopa County.
-The private PDF signing procedure and register templates are prepared.
-It is not ready for signatures until adoption and legal review.
-External copyrightable contributions must not be merged yet.
+It covers identified existing contributions and future contributions within its stated scope.
+It uses Arizona law and competent courts in Maricopa County or the federal court in Phoenix.
 
-## Prepare the final agreement
+The owner approved the terms and the private PDF signing process without a lawyer-review prerequisite.
+The agreement has not been reviewed or approved by a lawyer.
+The process is available for use. No contributor is approved merely because this form is published.
 
-1. Examine the proposed Arizona law and Maricopa County clauses.
-2. Obtain legal review of the assignment and its use across contributor jurisdictions.
-3. Confirm the proposed non-monetary promises and execution requirements.
-4. Approve the proposed private PDF signature method.
-5. Confirm access to the private intake mailbox and record storage.
-6. Adopt the final agreement with a version and effective date.
-7. Replace the draft links in the contribution instructions with the adopted agreement.
-
-The review must examine future contributions, employer-owned work, patent permissions, and personal rights that cannot be assigned.
-Legal review must also establish the evidence needed for the chosen signature method.
-A repository comment alone is not an approved assignment process.
-A contributor license agreement or commit sign-off is not a substitute for the required assignment.
+Before a merge, the owner must verify each actual rights holder's signed assignment.
+A contributor license agreement or commit sign-off is not a substitute for that assignment.
 
 ## Private intake setup
 
@@ -65,7 +54,7 @@ That test does not prove that a contributor's identity or signature is valid.
 
 ## Private signature exchange
 
-1. After adoption, export the complete agreement and schedules to PDF.
+1. Export the complete adopted agreement and schedules to PDF.
 2. Record its version and SHA-256 hash.
 3. Use the [private request template](signing-request.example.md) to prepare the message.
 4. Send it through the private channel agreed with the rights holder.
@@ -76,7 +65,7 @@ That test does not prove that a contributor's identity or signature is valid.
 9. Give both parties the same complete executed copy.
 10. Record the executed file's hash and private location in the register.
 
-A signature can be handwritten or electronic under the proposed process.
+A signature can be handwritten or electronic under this process.
 An electronic signature must be attached to the complete agreement and used with intent to sign it.
 If mandatory law requires additional formalities, satisfy them before accepting that contributor's assignment.
 An unsigned attachment, public checkbox, or Git commit sign-off is not this process.
@@ -120,11 +109,11 @@ Do not make a contributor's email address or legal document public through an au
 
 ## Merge gate
 
-The owner will verify assignments manually after the agreement is adopted.
+The owner verifies assignments manually.
 The repository test matrix and CODEOWNERS review do not validate legal signatures.
 The owner must examine the assignment record before approval.
 
-An automated coverage check can be added after the final agreement and identity process are adopted.
+An automated coverage check is optional. The current process uses manual verification.
 That check must examine all authors, not only the person who opens the pull request.
 It must block a merge when coverage is missing or uncertain.
 A successful automated check does not establish the validity of the legal agreement.

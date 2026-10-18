@@ -19,8 +19,8 @@ okf_version: "0.2"
 - [Pending work](docs/reference/pending.md) - Record the decisions needed before accepting outside contributions.
 - [Report example](docs/examples/report.md) - Read a fictional update report.
 
-- [Assignment draft](docs/legal/contributor-assignment-draft.md) - Review proposed contribution ownership terms.
+- [Contribution assignment](docs/legal/contributor-assignment.md) - Read the adopted contribution ownership terms.
 - [Signing process](docs/legal/signing-process.md) - Prepare and verify private contribution assignments.
 
-- [Assignment readiness](docs/legal/readiness-review.md) - Record prepared terms and the requirements before adoption.
-- [Private signing request](docs/legal/signing-request.example.md) - Prepare a request after the agreement is adopted.
+- [Assignment readiness](docs/legal/readiness-review.md) - Record owner adoption, private intake controls, and review limits.
+- [Private signing request](docs/legal/signing-request.example.md) - Prepare a private request with the adopted agreement.
