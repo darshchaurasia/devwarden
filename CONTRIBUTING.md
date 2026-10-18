@@ -51,6 +51,8 @@ The public repository uses main-branch protection for contributor changes:
 - Block force pushes and branch deletion.
 
 These settings are enforced on GitHub, not by a README or CODEOWNERS alone.
+Repository administrators retain GitHub's administrative bypass capability.
+The owner must still verify contribution rights before accepting third-party work.
 A required code-owner approval includes a manual verification of the signed assignment.
 No automated legal-signature verification is claimed.
 An optional signing integration can be added after the agreement is adopted.

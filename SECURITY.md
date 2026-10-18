@@ -9,7 +9,7 @@ status: stable
 
 ## Report a defect
 
-Use the repository's private vulnerability reporting feature, when available.
+Use [private vulnerability reporting](https://github.com/darshchaurasia/devwarden/security/advisories/new) for a security defect.
 If it is unavailable, ask the maintainer for a private reporting channel without sharing the defect details.
 Do not put credentials, private repository URLs, or database files in a public issue.
 If no private channel exists, request one without publishing sensitive details.
