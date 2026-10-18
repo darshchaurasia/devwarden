@@ -41,7 +41,7 @@ Commands, protocol identifiers, and third-party Git errors retain their original
 | Check | Result |
 |---|---|
 | Offline tests | 13 tests passed on local Python 3.14. |
-| Python compatibility | All source files passed Python 3.10 syntax parsing. Other interpreter runs remain a CI task. |
+| Python compatibility | All source files passed Python 3.10 syntax parsing. The remote matrix also passed on Python 3.10, 3.12, and 3.14. |
 | OKF metadata | All concept frontmatter parsed as YAML and contained a nonempty type. |
 | Documentation links | All local Markdown links resolved. |
 | Source docstrings | All Python functions and classes contained docstrings. |
@@ -50,8 +50,9 @@ Commands, protocol identifiers, and third-party Git errors retain their original
 | Mail | SMTP accepted a test message and the live update report. |
 | Privacy | Distribution excludes local environment, credentials, reports, and bytecode. |
 
-These are local results for this revision.
-No remote CI result or independent language approval is claimed.
+The initial publication also passed the [GitHub Actions test matrix](https://github.com/darshchaurasia/devwarden/actions/runs/39115520678).
+The matrix ran all 13 tests on Python 3.10, 3.12, and 3.14.
+No independent language approval is claimed.
 
 ## Review limits
 

@@ -14,6 +14,8 @@ sources:
 
 # DevWarden
 
+[![Tests](https://github.com/darshchaurasia/devwarden/actions/workflows/tests.yml/badge.svg)](https://github.com/darshchaurasia/devwarden/actions/workflows/tests.yml)
+
 **Keep your local Git projects current. Keep your development work safe.**
 
 DevWarden is a local service for Linux and WSL with systemd.
