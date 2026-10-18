@@ -4,11 +4,12 @@ Description=Update local GitHub repositories and save a report
 [Service]
 Type=oneshot
 UMask=0077
+Environment=@PYTHONPATH_ENV@
 Environment=@CONFIG_ENV@
 Environment=@STATE_ENV@
 ExecStartPre=/usr/bin/rm -f @STATE@
-ExecStart=@PYTHON@ @SCRIPT@ run
-ExecStopPost=@PYTHON@ @SCRIPT@ report
+ExecStart=@PYTHON@ -m devwarden.report run
+ExecStopPost=@PYTHON@ -m devwarden.report report
 TimeoutStopSec=5min
 TimeoutStartSec=4h
 Nice=10

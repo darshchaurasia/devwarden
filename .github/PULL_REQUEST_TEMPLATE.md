@@ -21,7 +21,7 @@ List the commands you ran and their results.
 
 ## Contribution ownership
 
-- [ ] I read the contribution ownership requirements in CONTRIBUTING.md.
+- [ ] I read the contribution ownership requirements in .github/CONTRIBUTING.md.
 - [ ] I contacted the owner about the required signed assignment.
 
 These checkboxes do not transfer copyright or replace a signed assignment.

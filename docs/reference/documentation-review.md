@@ -41,13 +41,13 @@ Commands, protocol identifiers, and third-party Git errors retain their original
 
 | Check | Result |
 |---|---|
-| Offline tests | 13 tests passed on local Python 3.14. |
-| Python compatibility | All source files passed Python 3.10 syntax parsing. The remote matrix also passed on Python 3.10, 3.12, and 3.14. |
+| Offline tests | 16 tests passed on local Python 3.14 after the package reorganization. |
+| Python compatibility | All source files passed Python 3.10 syntax parsing. The initial release matrix passed on Python 3.10, 3.12, and 3.14; the layout release runs the same matrix. |
 | OKF metadata | All concept frontmatter parsed as YAML and contained a nonempty type. |
 | Documentation links | All local Markdown links resolved. |
-| Source docstrings | All Python functions and classes contained docstrings. |
+| Source docstrings | All Python modules, functions, and classes contained docstrings. CI enforces this check. |
 | Service installation | Generated user units passed systemd validation. |
-| Live operation | Installed service completed a real update run without repository errors. |
+| Live operation | Reorganized service completed a real run: 83 current, 2 excluded, 0 errors. |
 | Mail | SMTP accepted a test message and the live update report. |
 | Privacy | Distribution excludes local environment, credentials, reports, and bytecode. |
 

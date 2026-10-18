@@ -24,3 +24,11 @@ status: stable
 - Add OKF v0.2 documentation and an explicit language review record.
 
 The source repository is published on GitHub. See the Actions tab for remote test results.
+
+## Layout and documentation update
+
+- Move runtime code into `src/devwarden/` and tests into `tests/`.
+- Group guides, references, examples, and release notes under `docs/`.
+- Bundle systemd templates with the application package.
+- Add source launchers, a rendered Markdown report example, and a pending-work register.
+- Check all Python docstrings, Python 3.10 syntax, and local documentation links in CI.

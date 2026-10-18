@@ -11,3 +11,7 @@ gmail.json
 outbox/
 worktrees/
 latest-report.*
+
+build/
+dist/
+*.egg-info/

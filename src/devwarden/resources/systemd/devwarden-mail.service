@@ -4,7 +4,8 @@ Description=Retry saved repository report email
 [Service]
 Type=oneshot
 UMask=0077
+Environment=@PYTHONPATH_ENV@
 Environment=@CONFIG_ENV@
 Environment=@STATE_ENV@
-ExecStart=@PYTHON@ @SCRIPT@ flush
+ExecStart=@PYTHON@ -m devwarden.report flush
 TimeoutStartSec=5min

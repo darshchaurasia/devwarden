@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-import report
+from devwarden import report
 
 
 class ReportTest(unittest.TestCase):

@@ -5,9 +5,9 @@ description: Install a local service that updates GitHub repositories and report
 status: stable
 tags: [git, automation, systemd]
 sources:
-  - resource: manage.py
-  - resource: update.py
-  - resource: report.py
+  - resource: src/devwarden/cli.py
+  - resource: src/devwarden/update.py
+  - resource: src/devwarden/report.py
   - id: gmail
     resource: https://support.google.com/accounts/answer/185833
 ---
@@ -34,7 +34,7 @@ It is useful when one development folder contains many independent Git projects.
 
 DevWarden maintains default branches. It does not synchronize development changes between computers.
 
-[Quick start](#quick-start) · [Operation](#operation) · [Update rules](#update-rules) · [Configuration](docs/configuration.md) · [Troubleshooting](docs/operations.md)
+[Quick start](#quick-start) · [Operation](#operation) · [Update rules](#update-rules) · [Configuration](docs/guides/configuration.md) · [Troubleshooting](docs/guides/operations.md)
 
 ## Features
 
@@ -72,7 +72,7 @@ cd devwarden
 1. Create your local configuration:
 
    ```sh
-   cp .env.example .env
+   cp config/.env.example .env
    chmod 600 .env
    ```
 
@@ -82,7 +82,7 @@ cd devwarden
 3. Install the service:
 
    ```sh
-   python3 manage.py setup
+   python3 scripts/devwarden.py setup
    ```
 
 4. Check the installation:
@@ -127,7 +127,7 @@ Your email provider's limits still apply.
 
 Without email configuration, the service saves local reports.
 It does not attempt SMTP delivery.
-See the [configuration reference](docs/configuration.md) for environment settings and private file locations.
+See the [configuration reference](docs/guides/configuration.md) for environment settings and private file locations.
 
 ## Operation
 
@@ -143,7 +143,7 @@ See the [configuration reference](docs/configuration.md) for environment setting
 | `devwarden email-retry` | Retry queued email now. |
 | `devwarden uninstall` | Remove installed services and keep private data. |
 
-Use `python3 manage.py COMMAND` from the project as an alternative.
+Use `python3 scripts/devwarden.py COMMAND` from the project as an alternative.
 A successful completed service returns to the inactive state.
 A repository error produces a failed service state and an error report.
 
@@ -169,11 +169,15 @@ The service never automatically resets branches, discards local work, creates me
 
 Repository discovery does not enter nested directories or follow directory symlinks.
 The service does not install dependencies or download submodules or LFS objects.
-See [operation and recovery](docs/operations.md) for limits and recovery steps.
+See [operation and recovery](docs/guides/operations.md) for limits and recovery steps.
 
 ## Reports
 
-[Open a sample HTML report](docs/report-example.html). The sample uses fictional repositories.
+[View a sample report](docs/examples/report.md). The sample uses fictional repositories.
+
+GitHub renders the Markdown example directly.
+For the email layout, download [the HTML example](docs/examples/report.html) and open it locally.
+GitHub displays HTML files as source and does not run them.
 
 Each run saves a text log, a text report, and an HTML report in private state storage.
 Email contains HTML and plain-text versions.
@@ -199,7 +203,7 @@ Obtain and review the next project version.
 Then run setup again from that version:
 
 ```sh
-python3 manage.py setup --yes
+python3 scripts/devwarden.py setup --yes
 ```
 
 Setup refreshes the installed runtime and keeps private credentials.
@@ -213,7 +217,7 @@ Review `.env` before reinstalling. Nonempty values can override stored settings.
 ```
 
 The source project, private settings, credentials, and reports remain.
-Use the paths in the [configuration reference](docs/configuration.md) to review retained data.
+Use the paths in the [configuration reference](docs/guides/configuration.md) to review retained data.
 Do not delete state storage until you inspect retained worktrees.
 
 ## License and ownership
@@ -227,7 +231,7 @@ The license prohibits providing a competing product, including a competing free 
 It does not prohibit every commercial use.
 Read the complete license before redistribution or external service use.
 
-Contributions are welcome under the separate [ownership requirements](CONTRIBUTING.md#ownership-requirements).
+Contributions are welcome under the separate [ownership requirements](.github/CONTRIBUTING.md#ownership-requirements).
 Accepted copyrightable contributions require a signed copyright assignment to Darsh Chaurasia.
 Submitting a pull request alone does not transfer ownership.
 
@@ -237,7 +241,7 @@ A future private version does not withdraw permissions already granted for a rel
 ## Contribute
 
 Bug reports, feature proposals, and reviewed contributions are welcome.
-Read [Contributing](CONTRIBUTING.md) before you start.
+Read [Contributing](.github/CONTRIBUTING.md) before you start.
 It explains the fork-and-pull-request process, test matrix, owner review, and required copyright assignment.
 
 Darsh Chaurasia is the project owner and the designated recipient of contribution assignments.
@@ -245,21 +249,42 @@ Do not assume that a pull request transfers ownership automatically.
 The owner must verify a signed assignment before merging contributed work.
 The agreement is being finalized, so code contributions remain pending until that process is in place.
 
+## Project layout
+
+```text
+config/                        Environment example
+scripts/                       Source launchers and test command
+src/devwarden/                 Application package
+  resources/systemd/           Service and timer templates
+tests/                         Offline tests
+docs/
+  guides/                      Configuration and operation
+  reference/                   Technical terms and review record
+  examples/                    Report examples
+  releases/                    Release notes
+.github/                       CI, contribution guide, security policy, and forms
+```
+
+The README, license, package metadata, and documentation index remain at the root.
+GitHub and Python tools use these standard locations.
+Your private `.env` remains outside version control.
+
 ## Documentation and development
 
-- [Configuration](docs/configuration.md)
-- [Operation and recovery](docs/operations.md)
-- [Security](SECURITY.md)
-- [Contributing](CONTRIBUTING.md)
-- [Release notes](CHANGELOG.md)
-- [Documentation review](docs/documentation-review.md)
-- [Technical terms](docs/terms.md)
+- [Configuration](docs/guides/configuration.md)
+- [Operation and recovery](docs/guides/operations.md)
+- [Security](.github/SECURITY.md)
+- [Contributing](.github/CONTRIBUTING.md)
+- [Release notes](docs/releases/changelog.md)
+- [Pending work](docs/reference/pending.md)
+- [Documentation review](docs/reference/documentation-review.md)
+- [Technical terms](docs/reference/terms.md)
 - [License](LICENSE.md)
 
 Run the offline tests:
 
 ```sh
-python3 -m unittest discover -s . -p 'test_*.py'
+python3 scripts/test.py
 ```
 
 The documentation targets Open Knowledge Format v0.2.

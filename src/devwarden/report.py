@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Save updater output and email reports using a locally configured Gmail account."""
+"""Save update reports and deliver them through a configured SMTP account."""
 import argparse
 from datetime import datetime
 from email.message import EmailMessage
@@ -15,9 +15,8 @@ import ssl
 import subprocess
 import sys
 
-from config import SMTP, STATE_DIR, load_settings, mail_settings, save_private
+from .config import SMTP, STATE_DIR, load_settings, mail_settings, save_private
 
-ROOT = Path(__file__).resolve().parent
 STATE = STATE_DIR
 CONFIG = SMTP
 
@@ -186,7 +185,14 @@ def report_subject(body):
 
 
 def send(subject, body):
-    """Send text and HTML alternatives over verified SMTP TLS."""
+    """Send text and HTML alternatives over verified SMTP TLS.
+
+    Args:
+        subject: Email subject without private authentication data.
+        body: Recorded run output used to build both report formats.
+
+    SMTP exceptions propagate so the caller can retain the queued message.
+    """
     config = mail_settings(CONFIG)
     if config is None:
         raise ValueError('Email is not configured. Run devwarden email-configure.')
@@ -226,7 +232,7 @@ def run():
     with log.open('w') as output:
         output.write(f'DevWarden started {stamp}\n')
         output.flush()
-        with subprocess.Popen([sys.executable, '-u', str(ROOT / 'update.py')],
+        with subprocess.Popen([sys.executable, '-u', '-m', 'devwarden.update'],
                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True) as child:
             for line in child.stdout:
                 output.write(line)
@@ -254,6 +260,7 @@ def report():
     outbox = STATE / 'outbox'
     outbox.mkdir(exist_ok=True)
     pending = outbox / (datetime.now().astimezone().strftime('%Y%m%dT%H%M%S%f%z') + '.txt')
+    # Save before SMTP: failed delivery must leave a message for the retry timer.
     pending.write_text(body)
     return flush()
 
@@ -279,6 +286,7 @@ def flush_locked():
     for pending in sorted((STATE / 'outbox').glob('*.txt')):
         body = pending.read_text()
         send(report_subject(body), body)
+        # Remove only after the server accepts the complete message.
         pending.unlink()
         print('SMTP accepted the report.', flush=True)
     return 0

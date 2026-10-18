@@ -13,7 +13,7 @@ import sys
 import time
 import tempfile
 
-from config import STATE_DIR, load_settings
+from .config import STATE_DIR, load_settings
 
 ENV = dict({key: value for key, value in os.environ.items()
             if key != 'DEVWARDEN_SMTP_PASSWORD'}, GIT_TERMINAL_PROMPT='0',
@@ -108,7 +108,16 @@ def update_in_worktree(repo, branch, metadata):
 
 
 def update(repo, dry_run, metadata=None):
-    """Confirm or advance a default branch while preserving local work."""
+    """Confirm or advance a default branch while preserving local work.
+
+    Args:
+        repo: Path to a Git working directory.
+        dry_run: Check readiness without fetching or changing branches.
+        metadata: Mutable report fields populated during the check.
+
+    Returns:
+        A status and a diagnostic description. Git failures raise RuntimeError.
+    """
     metadata = metadata if metadata is not None else {}
     origin = optional(repo, 'remote', 'get-url', 'origin')
     metadata['branch'] = optional(repo, 'symbolic-ref', '-q', '--short', 'HEAD') or 'detached/unborn'

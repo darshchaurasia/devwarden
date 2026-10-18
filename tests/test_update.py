@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import unittest
 from unittest.mock import patch
-import update
+from devwarden import update
 
 
 def run(*args):

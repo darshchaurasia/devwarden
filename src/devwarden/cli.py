@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-from config import CONFIG_DIR, ENV_FILE, SETTINGS, SMTP, STATE_DIR, load_settings, read_env, save_private
+from .config import CONFIG_DIR, ENV_FILE, SETTINGS, SMTP, STATE_DIR, load_settings, read_env, save_private
 
 SOURCE = Path(__file__).resolve().parent
 APP = Path.home() / '.local/share/devwarden'
@@ -21,6 +21,13 @@ UNIT_NAMES = ('devwarden.service', 'devwarden.timer',
 def command(*args):
     """Run a command and stop if it fails."""
     return subprocess.run(args, check=True)
+
+
+def run_module(name, *args):
+    """Run a package module from the current source or installed runtime."""
+    environment = dict(os.environ, PYTHONPATH=str(SOURCE.parent))
+    return subprocess.run([sys.executable, '-m', 'devwarden.' + name, *args],
+                          env=environment, check=True)
 
 
 def unit_argument(value):
@@ -71,22 +78,21 @@ def install(args):
                                sender=value['sender'], recipient=value['sender'],
                                username=value['sender'], password=value['password']))
     APP.mkdir(parents=True, exist_ok=True, mode=0o700)
-    for name in ('config.py', 'update.py', 'report.py', 'manage.py', *UNIT_NAMES):
-        if SOURCE != APP:
-            shutil.copy2(SOURCE / name, APP / name)
+    if SOURCE != APP / 'src/devwarden':
+        shutil.copytree(SOURCE, APP / 'src/devwarden', dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
     BIN.parent.mkdir(parents=True, exist_ok=True)
-    BIN.write_text('#!/usr/bin/env python3\nimport sys\nsys.path.insert(0, ' + repr(str(APP)) + ')\nfrom manage import main\nmain()\n')
+    BIN.write_text('#!/usr/bin/env python3\n"""Run the installed DevWarden command."""\nimport sys\nsys.path.insert(0, ' + repr(str(APP / 'src')) + ')\nfrom devwarden.cli import main\nmain()\n')
     BIN.chmod(0o700)
     replacements = {'@PYTHON@': unit_argument(sys.executable),
-                    '@APP@': unit_argument(str(APP)), '@CALENDAR@': calendar,
+                    '@PYTHONPATH_ENV@': unit_argument('PYTHONPATH=' + str(APP / 'src')), '@CALENDAR@': calendar,
                     '@STATE@': unit_argument(str(STATE_DIR / 'current-log')),
                     '@CONFIG_ENV@': unit_argument('DEVWARDEN_CONFIG_DIR=' + str(CONFIG_DIR)),
                     '@STATE_ENV@': unit_argument('DEVWARDEN_STATE_DIR=' + str(STATE_DIR))}
     UNITS.mkdir(parents=True, exist_ok=True)
     for name in UNIT_NAMES:
-        text = (APP / name).read_text()
+        text = (APP / 'src/devwarden/resources/systemd' / name).read_text()
         # Paths are inserted as individual quoted arguments, not shell commands.
-        text = text.replace('@SCRIPT@', unit_argument(str(APP / 'report.py')))
         for key, value in replacements.items():
             text = text.replace(key, value)
         (UNITS / name).write_text(text)
@@ -99,7 +105,7 @@ def install(args):
 
 def doctor():
     """Show prerequisites and service state without printing secrets."""
-    from config import mail_settings
+    from .config import mail_settings
     print('Python:', sys.version.split()[0])
     print('Git:', shutil.which('git') or 'not found')
     settings = load_settings()
@@ -146,14 +152,14 @@ def main():
             command('systemctl', '--user', 'start', '--no-block', 'devwarden.service')
             print('Started the service. Use devwarden logs to read results.')
         elif args.action == 'preview':
-            command(sys.executable, str(SOURCE / 'update.py'), '--dry-run')
+            run_module('update', '--dry-run')
         elif args.action == 'status':
             command('systemctl', '--user', 'status', 'devwarden.service', '--no-pager')
         elif args.action == 'logs':
             command('journalctl', '--user', '-u', 'devwarden.service', '-u', 'devwarden-mail.service', '-n', '150', '--no-pager')
         else:
             action = {'email-configure': 'configure', 'email-test': 'test', 'email-retry': 'flush'}[args.action]
-            command(sys.executable, str(SOURCE / 'report.py'), action)
+            run_module('report', action)
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         print(str(error), file=sys.stderr)
         sys.exit(1)

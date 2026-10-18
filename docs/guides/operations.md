@@ -4,9 +4,9 @@ title: Operation and recovery
 description: Check service results and recover from common failures.
 status: stable
 sources:
-  - resource: ../update.py
-  - resource: ../report.py
-  - resource: ../manage.py
+  - resource: ../../src/devwarden/update.py
+  - resource: ../../src/devwarden/report.py
+  - resource: ../../src/devwarden/cli.py
 ---
 
 # Operation and recovery

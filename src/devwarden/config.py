@@ -35,7 +35,7 @@ def read_env(path):
     return values
 
 
-LOCAL_ENV = Path(__file__).resolve().parent / '.env'
+LOCAL_ENV = Path(__file__).resolve().parents[2] / '.env'
 ENV_FILE = LOCAL_ENV if LOCAL_ENV.exists() else CONFIG_DIR / '.env'
 for _key, _value in read_env(ENV_FILE).items():
     os.environ.setdefault(_key, _value)

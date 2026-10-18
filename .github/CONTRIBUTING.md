@@ -63,8 +63,8 @@ Use Python 3.10 or later and Git 2.28 or later.
 The runtime and offline tests require no third-party Python packages.
 
 ```sh
-python3 -m unittest discover -s . -p 'test_*.py'
-python3 manage.py --help
+python3 scripts/test.py
+python3 scripts/devwarden.py --help
 ```
 
 Do not use real credentials in tests.
@@ -93,8 +93,9 @@ Do not add an AI service dependency.
 
 Use OKF v0.2 metadata for each concept document.
 Use short sentences, active instructions, and consistent technical terms.
-Use [technical terms](docs/terms.md) for software-specific meanings.
-See the [review record](docs/documentation-review.md) before making a conformance claim.
+Keep runtime code in `src/devwarden/` and offline checks in `tests/`.
+Use [technical terms](../docs/reference/terms.md) for software-specific meanings.
+See the [review record](../docs/reference/documentation-review.md) before making a conformance claim.
 
 ## Release
 

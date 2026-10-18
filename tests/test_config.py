@@ -6,8 +6,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import config
-import manage
+from devwarden import config
+from devwarden import cli
 
 
 class ConfigTest(unittest.TestCase):
@@ -37,9 +37,9 @@ class ConfigTest(unittest.TestCase):
 
     def test_systemd_paths_are_quoted(self):
         """Do not treat unit paths as shell commands or systemd specifiers."""
-        self.assertEqual(manage.unit_argument('/tmp/path with % and $'), '"/tmp/path with %% and $$"')
+        self.assertEqual(cli.unit_argument('/tmp/path with % and $'), '"/tmp/path with %% and $$"')
         with self.assertRaises(ValueError):
-            manage.unit_argument('/tmp/path\nExecStart=bad')
+            cli.unit_argument('/tmp/path\nExecStart=bad')
 
 
 if __name__ == '__main__':

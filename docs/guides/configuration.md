@@ -4,8 +4,8 @@ title: Configuration
 description: Set repository, schedule, retention, and mail parameters without code changes.
 status: stable
 sources:
-  - resource: ../config.py
-  - resource: ../manage.py
+  - resource: ../../src/devwarden/config.py
+  - resource: ../../src/devwarden/cli.py
   - id: timer
     resource: https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html
 ---
@@ -14,14 +14,14 @@ sources:
 
 ## Environment file
 
-Copy `.env.example` to `.env` before setup.
+Copy `config/.env.example` to `.env` before setup.
 The parser accepts literal `KEY=VALUE` entries, comments, and quoted values.
 It does not execute commands or expand shell variables.
 Use `~` or an absolute path for the repository folder.
 Quote values that contain spaces.
 
 Process environment values have priority over `.env` values.
-An environment file beside the executing code has priority over the private environment file.
+The source-root environment file has priority over the private environment file.
 Nonempty environment values have priority over stored JSON settings.
 Empty SMTP values do not erase stored credentials.
 
@@ -67,7 +67,7 @@ Calendar expressions follow systemd rules.[^timer]
 | `~/.config/devwarden/.env` | Installed environment settings. |
 | `~/.config/devwarden/settings.json` | Selected repository folder, schedule, and retention. |
 | `~/.config/devwarden/smtp.json` | Private SMTP settings and password. |
-| `~/.local/share/devwarden/` | Installed runtime and unit templates. |
+| `~/.local/share/devwarden/` | Installed package under `src/devwarden/`, including service templates. |
 | `~/.local/bin/devwarden` | Installed command. |
 | `~/.config/systemd/user/devwarden*` | Active user units. |
 | `~/.local/state/devwarden/` | Logs, reports, queue, locks, and retained worktrees. |
@@ -78,12 +78,12 @@ Installed units retain the selected storage paths.
 
 Private JSON files and the installed environment file use mode `600`.
 New state directories use mode `700`.
-The source `.env` must also remain private.
+The source-root `.env` must also remain private.
 
 ## Installation without prompts
 
 ```sh
-python3 manage.py setup --yes --root ~/code \
+python3 scripts/devwarden.py setup --yes --root ~/code \
   --calendar 'Fri *-*-* 06:00:00 Etc/UTC'
 ```
 
