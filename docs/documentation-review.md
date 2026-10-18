@@ -19,7 +19,8 @@ sources:
 The documentation targets Open Knowledge Format v0.2.[^okf]
 Each concept document has YAML frontmatter with a nonempty `type`.
 The root `index.md` declares the bundle version and lists documents.
-Code, environment examples, unit templates, and the extensionless license are not OKF concepts.
+Code, environment examples, unit templates, and the legal license document are not OKF concepts.
+The license retains its standard legal text without added metadata.
 
 The original knowledge-catalog link now points readers to the separate canonical OKF repository.
 This project follows that canonical specification.

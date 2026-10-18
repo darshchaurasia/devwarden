@@ -219,7 +219,7 @@ Do not delete state storage until you inspect retained worktrees.
 ## License and ownership
 
 Copyright (c) 2026 Darsh Chaurasia.
-DevWarden uses [PolyForm Perimeter 1.0.1](LICENSE).
+DevWarden uses [PolyForm Perimeter 1.0.1](LICENSE.md).
 It is source-available software, not OSI open-source software.
 
 Individuals and businesses can use DevWarden internally and make changes for permitted purposes.
@@ -254,7 +254,7 @@ The agreement is being finalized, so code contributions remain pending until tha
 - [Release notes](CHANGELOG.md)
 - [Documentation review](docs/documentation-review.md)
 - [Technical terms](docs/terms.md)
-- [License](LICENSE)
+- [License](LICENSE.md)
 
 Run the offline tests:
 
