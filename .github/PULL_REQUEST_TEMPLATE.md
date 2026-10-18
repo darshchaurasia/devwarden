@@ -15,7 +15,7 @@ Link the related issue, if applicable.
 List the commands you ran and their results.
 
 - [ ] The offline tests pass.
-- [ ] Relevant documentation is updated.
+- [ ] Related documentation is updated.
 - [ ] No credentials, private configuration, or personal run reports are included.
 - [ ] Third-party material is identified with its source and license.
 
@@ -26,4 +26,4 @@ List the commands you ran and their results.
 
 These checkboxes do not transfer copyright or replace a signed assignment.
 Do not attach signed legal forms or private personal information to this public pull request.
-The owner must verify the assignment before approving a merge.
+Before a merge, the owner must verify the assignment.

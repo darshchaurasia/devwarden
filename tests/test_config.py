@@ -1,4 +1,4 @@
-"""Check private settings and literal environment files."""
+"""Examine private settings and literal environment files."""
 import json
 import os
 from pathlib import Path
@@ -11,7 +11,7 @@ from devwarden import cli
 
 
 class ConfigTest(unittest.TestCase):
-    """Check configuration boundaries without real credentials."""
+    """Examine configuration boundaries without real credentials."""
 
     def test_env_is_literal(self):
         """Do not execute shell expressions from an environment file."""

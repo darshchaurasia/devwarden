@@ -1,7 +1,7 @@
 ---
 type: Project Status
 title: Pending work
-description: List decisions and reviews that remain after the layout release.
+description: Record the decisions needed before accepting outside contributions.
 status: draft
 ---
 
@@ -9,8 +9,11 @@ status: draft
 
 | Task | Required before |
 |---|---|
-| Finalize the contributor copyright assignment, governing law, and private signing process with qualified legal review. | Accepting external copyrightable contributions. |
-| Complete the qualified ASD-STE100 Issue 9 review described in the [review record](documentation-review.md). | Claiming full language conformance. |
+| Adopt the [assignment draft](../legal/contributor-assignment-draft.md) after completing governing law, dispute forum, consideration, execution, and legal review. | Accepting external copyrightable contributions. |
+| Set up the private signature channel and register in the [signing procedure](../legal/signing-process.md). | Accepting signed assignments and approving external work. |
+
+The agent language review is complete. See its [scope and limits](documentation-review.md).
+No full STE conformance claim is made.
 
 The contribution test and owner-review pipeline is in place.
 The owner must verify signed assignments privately before accepting external work.

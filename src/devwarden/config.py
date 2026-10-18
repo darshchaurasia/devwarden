@@ -42,7 +42,7 @@ for _key, _value in read_env(ENV_FILE).items():
 
 
 def load_settings():
-    """Read settings without creating files or using personal defaults."""
+    """Read settings. Do not create files or use personal defaults."""
     settings = json.loads(SETTINGS.read_text()) if SETTINGS.exists() else {}
     if not isinstance(settings, dict):
         raise ValueError('Settings must be a JSON object.')
@@ -61,7 +61,7 @@ def load_settings():
 
 
 def save_private(path, value):
-    """Write a JSON file atomically with access restricted to its owner."""
+    """Write a private JSON file. Replace the destination with one atomic operation."""
     import tempfile
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     fd, temporary = tempfile.mkstemp(dir=path.parent, prefix='.settings-')

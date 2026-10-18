@@ -15,7 +15,7 @@ This example uses fictional repositories. It does not describe a real service ru
 
 | Repository | Branch | Reason | Diagnostics | Suggested action |
 |---|---|---|---|---|
-| sample-api | main → main | Local history differs from remote | Ahead: 2. Behind: 4. | Review local and remote commits before reconciliation. |
+| sample-api | main → main | Local history differs from remote | Ahead: 2. Behind: 4. | Examine the local and remote commits before you change either history. |
 
 ## Excluded from updates
 
@@ -37,5 +37,5 @@ This example uses fictional repositories. It does not describe a real service ru
 
 ## Email layout
 
-Download [the HTML example](report.html) and open it in a browser to inspect the email layout.
+Download [the HTML example](report.html) and open it in a browser to examine the email layout.
 GitHub displays that file as source. It does not run HTML files.

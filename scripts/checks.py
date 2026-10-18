@@ -29,7 +29,7 @@ def check_message(message):
 
 
 def test_tree(tree):
-    """Test an exported Git tree so unstaged files cannot hide a broken commit."""
+    """Test an exported Git tree. Do not include unstaged files."""
     with tempfile.TemporaryDirectory(prefix='devwarden-check-') as directory:
         archive = subprocess.check_output(['git', 'archive', tree])
         subprocess.run(['tar', '-x', '-C', directory], input=archive, check=True)
@@ -47,7 +47,7 @@ def test_tree(tree):
 
 
 def pre_push(stream):
-    """Validate new commit messages and test each nondeleted pushed tip."""
+    """Validate new commit messages. Test each commit at the end of a pushed branch."""
     tested = set()
     for line in stream:
         _, local, _, remote = line.split()

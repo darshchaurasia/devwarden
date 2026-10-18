@@ -1,4 +1,4 @@
-"""Check commit subjects and the exact tree used by local Git hooks."""
+"""Examine commit subjects and the exact tree used by local Git hooks."""
 import io
 import os
 from pathlib import Path

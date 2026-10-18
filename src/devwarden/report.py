@@ -36,7 +36,7 @@ def configure():
                  security=security, username=username, password=password)
     validate_mail(value)
     save_private(CONFIG, value)
-    print('Saved private SMTP settings. Run devwarden email-test to check delivery.')
+    print('Saved private SMTP settings. Use devwarden email-test to test delivery.')
 
 
 def validate_mail(value):
@@ -56,30 +56,30 @@ def validate_mail(value):
 def error_guidance(detail):
     """Select a reason and recovery action with local text rules."""
     rules = [
-        ('local commits', 'Local history differs from remote', 'Review local and remote commits; preserve local work before deciding how to reconcile.'),
-        ('checked-out branch', 'Different branch checked out', 'Finish your work, then switch to the default branch and rerun.'),
-        ('local changes', 'Uncommitted changes', 'Review and commit or stash your changes yourself, then rerun.'),
-        ('default branch', 'Default branch unavailable', 'Check the remote URL and whether the repository is empty or its default branch was renamed.'),
-        ('detached or unborn', 'No checked-out branch', 'Check out the intended default branch after preserving local work.'),
-        ('Git operation or lock', 'Git operation or lock present', 'Finish or investigate the Git operation; verify no Git process is running before handling a stale lock.'),
-        ('sparse checkout', 'Sparse checkout enabled', 'Review the sparse checkout configuration before updating manually.'),
-        ('timed out', 'Git command timed out', 'Check connectivity and remote availability, then rerun.'),
-        ('Authentication', 'Authentication failed', 'Check GitHub login and repository access with gh auth status.'),
-        ('Permission denied', 'Access denied', 'Check GitHub credentials and repository permissions.'),
-        ('Repository not found', 'Repository unavailable', 'Check the origin URL and whether your account still has access.'),
-        ('Could not resolve', 'DNS lookup failed', 'Check the internet connection and DNS, then rerun.'),
+        ('local commits', 'Local history differs from remote', 'Examine the local and remote commits. Keep local work before you change either history.'),
+        ('checked-out branch', 'Different branch checked out', 'Finish your work. Switch to the default branch. Start the updater again.'),
+        ('local changes', 'Uncommitted changes', 'Examine your changes. Save them in a commit or a Git stash. Start the updater again.'),
+        ('default branch', 'Default branch unavailable', 'Examine the remote URL. Find the default branch on GitHub. An empty repository has no branch to update.'),
+        ('detached or unborn', 'No checked-out branch', 'Keep local work first. Use git switch to select the default branch.'),
+        ('Git operation or lock', 'Git operation or lock present', 'Examine the Git operation. Finish it if possible. Before you remove a stale lock, make sure its Git process has stopped.'),
+        ('sparse checkout', 'Sparse checkout enabled', 'Examine the sparse checkout settings. Update the repository manually if necessary.'),
+        ('timed out', 'Git command timed out', 'Examine the network connection and remote access. Start the updater again.'),
+        ('Authentication', 'Authentication failed', 'Use gh auth status to examine the GitHub login. Make sure the Git credentials can access the repository.'),
+        ('Permission denied', 'Access denied', 'Examine the GitHub credentials and repository permissions.'),
+        ('Repository not found', 'Repository unavailable', 'Examine the origin URL. Make sure your account can access the repository.'),
+        ('Could not resolve', 'DNS lookup failed', 'Examine the internet connection and DNS settings. Start the updater again.'),
     ]
     for needle, reason, action in rules:
         if needle.lower() in detail.lower():
             return reason, action
-    return 'Update could not be completed', 'Inspect the diagnostics and saved run log; resolve the issue before rerunning.'
+    return 'Update could not be completed', 'Examine the diagnostics and saved log. Correct the problem. Start the updater again.'
 
 
 def table_columns(status, detail, metadata):
     """Build report columns from saved run metadata."""
     branch = metadata.get('branch', 'Not recorded')
     if metadata.get('preserved_branch'):
-        branch += ' (updated separately; working checkout stays on ' + metadata['preserved_branch'] + ')'
+        branch += ' (default branch updated. Checkout stays on ' + metadata['preserved_branch'] + ')'
     if metadata.get('switched_from'):
         branch += ' (switched from ' + metadata['switched_from'] + ')'
     default = metadata.get('default_branch', 'Unknown')
@@ -115,7 +115,7 @@ def format_report(body):
                 record = json.loads(line[5:])
                 metadata[record['folder']] = record
             except (ValueError, KeyError, TypeError):
-                extra.append('Unreadable repository metadata; refer to raw log.')
+                extra.append('The repository metadata cannot be read. Examine the raw log.')
             continue
         match = re.match(r'^(ERROR|SKIP|UPDATED|CURRENT|READY) (.+?): (.*)$', line)
         if match:
@@ -137,7 +137,7 @@ def format_report(body):
             '<p style="padding:16px;background:#eef3f8;border-radius:8px;font-size:16px">' + escape(summary) + '</p>',
             '<p style="color:#5f6368;line-height:1.6">' + '<br>'.join(escape(line) for line in run_details) + '</p>']
     if not complete:
-        warning = 'Run did not finish: counts reflect only results recorded before it stopped.'
+        warning = 'Run did not finish. Counts include only the results recorded before the stop.'
         text.extend(['', warning])
         html.append('<p style="color:#b3261e"><strong>' + warning + '</strong></p>')
     sections = [('ERROR', 'Errors — action required'), ('SKIP', 'Excluded from updates'),
@@ -170,7 +170,11 @@ def format_report(body):
     if extra:
         text.extend(['', 'Additional diagnostics', *extra])
         html.append('<h2 style="font-size:18px">Additional diagnostics</h2><pre style="white-space:pre-wrap">' + escape('\n'.join(extra)) + '</pre>')
-    note = 'The updater preserves local changes and commits. Other-branch checkouts stay on their branch with local files intact; the default branch is updated in a separate temporary worktree. No automatic resets or stashes are performed. Submodules, LFS downloads, and dependencies are not updated.'
+    note = ('The updater keeps local changes and commits. '
+            'A development checkout stays on its branch with its local files. '
+            'The updater updates the default branch in a different temporary worktree. '
+            'The updater does not automatically reset branches or create a Git stash. '
+            'It does not update submodules, LFS objects, or dependencies.')
     text.extend(['', 'Notes', note])
     html.append('<p style="margin-top:28px;color:#5f6368;font-size:12px">' + escape(note) + '</p></body></html>')
     return '\n'.join(text) + '\n', ''.join(html)
@@ -191,7 +195,7 @@ def send(subject, body):
         subject: Email subject without private authentication data.
         body: Recorded run output used to build both report formats.
 
-    SMTP exceptions propagate so the caller can retain the queued message.
+    SMTP exceptions propagate so the caller can keep the queued message.
     """
     config = mail_settings(CONFIG)
     if config is None:
@@ -247,13 +251,13 @@ def report():
     result = os.environ.get('SERVICE_RESULT', 'unknown')
     pointer = STATE / 'current-log'
     log = Path(pointer.read_text().strip()) if pointer.exists() else None
-    content = log.read_text() if log and log.exists() else 'No run log was created. Inspect the systemd journal.'
-    summary = next((line for line in reversed(content.splitlines()) if line.startswith('Summary:')), 'No summary: updater may have stopped before completion.')
+    content = log.read_text() if log and log.exists() else 'There is no run log. Examine the systemd journal.'
+    summary = next((line for line in reversed(content.splitlines()) if line.startswith('Summary:')), 'No summary: the updater possibly stopped before the end.')
     body = (f'DevWarden on {os.uname().nodename}\n'
             f'Time: {datetime.now().astimezone().isoformat()}\nService result: {result}\n'
             f'Exit status: {os.environ.get("EXIT_STATUS", "unknown")}\n{summary}\n\n'
             f'SKIP entries are excluded from the update scope.\n'
-            f'ERROR entries could not be brought up to date and need attention. No automatic reset or stash is performed.\n\n{content}')
+            f'ERROR entries need attention: the updater could not make sure that the default branch is current. The updater does not automatically reset branches or create a Git stash.\n\n{content}')
     text, html = format_report(body)
     (STATE / 'latest-report.txt').write_text(text)
     (STATE / 'latest-report.html').write_text(html)
@@ -277,7 +281,7 @@ def flush():
 
 
 def flush_locked():
-    """Deliver queued reports and retain messages that cannot be sent."""
+    """Deliver queued reports and keep messages that cannot be sent."""
     if not list((STATE / 'outbox').glob('*.txt')):
         return 0
     if mail_settings(CONFIG) is None:
@@ -304,7 +308,7 @@ if __name__ == '__main__':
         else:
             sys.exit(globals()[command]() or 0)
     except smtplib.SMTPAuthenticationError:
-        print('SMTP authentication failed. Check the account and password with devwarden email-configure.', file=sys.stderr)
+        print('SMTP authentication failed. Examine the account and password with devwarden email-configure.', file=sys.stderr)
         sys.exit(1)
     except Exception as error:
         print(f'{type(error).__name__}: {error}', file=sys.stderr)
