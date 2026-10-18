@@ -16,5 +16,8 @@ okf_version: "0.2"
 - [Technical terms](docs/reference/terms.md) - Define software terms used in the documentation and code comments.
 - [Documentation review](docs/reference/documentation-review.md) - Record format checks, language review scope, and remaining conformance work.
 
-- [Pending work](docs/reference/pending.md) - Track remaining legal and language reviews.
+- [Pending work](docs/reference/pending.md) - Record the decisions needed before accepting outside contributions.
 - [Report example](docs/examples/report.md) - Read a fictional update report.
+
+- [Assignment draft](docs/legal/contributor-assignment-draft.md) - Review proposed contribution ownership terms.
+- [Signing process](docs/legal/signing-process.md) - Prepare and verify private contribution assignments.

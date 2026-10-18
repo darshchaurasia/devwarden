@@ -250,6 +250,7 @@ It explains the fork-and-pull-request process, test matrix, owner review, and re
 Darsh Chaurasia is the project owner and the designated recipient of contribution assignments.
 Do not assume that a pull request transfers ownership automatically.
 Before a merge, the owner must make sure that the contributor has signed the applicable assignment.
+A [draft assignment](docs/legal/contributor-assignment-draft.md) and [signing procedure](docs/legal/signing-process.md) are available for review.
 The assignment agreement is not final.
 External contributions must wait until the owner adopts the agreement and verifies the signed assignment.
 
@@ -266,6 +267,7 @@ docs/
   reference/                   Technical terms and review record
   examples/                    Report examples
   releases/                    Release notes
+  legal/                       Assignment draft and signing procedure
 .github/                       CI, contribution guide, security policy, and forms
 ```
 

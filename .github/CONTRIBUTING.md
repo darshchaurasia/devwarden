@@ -36,6 +36,7 @@ A contributor cannot assign rights that they do not own.
 
 A pull-request checkbox, commit sign-off, or GitHub account does not by itself establish a completed assignment.
 Before approval, the owner examines the private legal records.
+The [assignment draft](../docs/legal/contributor-assignment-draft.md) and [signing process](../docs/legal/signing-process.md) are available for review.
 The assignment form is not final.
 The owner must adopt the agreement before accepting signed copies.
 Before a merge, the owner must verify the signed assignment.

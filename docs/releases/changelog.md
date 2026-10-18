@@ -44,3 +44,9 @@ The source repository is published on GitHub. See the Actions tab for remote tes
 - Separate instructions into individual steps.
 - Simplify report recovery instructions and source documentation.
 - Record software terminology and the limits of the agent language review.
+
+## Contribution agreement draft
+
+- Add a draft copyright assignment to Darsh Chaurasia.
+- Add a private signing procedure and the decisions needed before use.
+- Keep external contributions on hold until the agreement and signature process are adopted.
